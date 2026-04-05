@@ -1,0 +1,38 @@
+@model VgcCollege.Web.Models.StudentProfile
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<h2 class="mb-4"><i class="bi bi-person me-2"></i>My Profile</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <strong>@Model.Name</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="text-muted">Student Number</span>
+                    <strong>@Model.StudentNumber</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="text-muted">Email</span>
+                    <span>@Model.Email</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="text-muted">Phone</span>
+                    <span>@Model.Phone</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="text-muted">Address</span>
+                    <span>@Model.Address</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="text-muted">Date of Birth</span>
+                    <span>@Model.DateOfBirth?.ToString("dd MMM yyyy")</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

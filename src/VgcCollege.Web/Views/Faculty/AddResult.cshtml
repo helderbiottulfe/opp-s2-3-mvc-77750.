@@ -1,0 +1,49 @@
+@model VgcCollege.Web.Models.AssignmentResult
+@{
+    ViewData["Title"] = "Add Result";
+    var assignment = ViewBag.Assignment as VgcCollege.Web.Models.Assignment;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Enter Result</h5>
+            </div>
+            <div class="card-body">
+                @if (assignment != null)
+                {
+                    <div class="alert alert-light border mb-3">
+                        <strong>@assignment.Title</strong><br />
+                        <small class="text-muted">Course: @assignment.Course?.Name | Max Score: @assignment.MaxScore</small>
+                    </div>
+                }
+                <form asp-action="AddResult" method="post">
+                    @Html.AntiForgeryToken()
+                    <input asp-for="AssignmentId" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="StudentProfileId" class="form-label fw-semibold">Student</label>
+                        <select asp-for="StudentProfileId" asp-items="ViewBag.Students" class="form-select">
+                            <option value="">-- Select Student --</option>
+                        </select>
+                        <span asp-validation-for="StudentProfileId" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Score" class="form-label fw-semibold">Score (max @assignment?.MaxScore)</label>
+                        <input asp-for="Score" class="form-control" type="number" step="0.5" min="0" max="@assignment?.MaxScore" />
+                        <span asp-validation-for="Score" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Feedback" class="form-label fw-semibold">Feedback</label>
+                        <textarea asp-for="Feedback" class="form-control" rows="3" placeholder="Optional feedback..."></textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success">Save Result</button>
+                        <a asp-action="Gradebook" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

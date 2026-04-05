@@ -1,0 +1,45 @@
+@model VgcCollege.Web.Models.Assignment
+@{
+    ViewData["Title"] = "Create Assignment";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Create Assignment</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreateAssignment" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="CourseId" class="form-label fw-semibold">Course</label>
+                        <select asp-for="CourseId" asp-items="ViewBag.Courses" class="form-select">
+                            <option value="">-- Select Course --</option>
+                        </select>
+                        <span asp-validation-for="CourseId" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label fw-semibold"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="MaxScore" class="form-label fw-semibold">Max Score</label>
+                        <input asp-for="MaxScore" class="form-control" type="number" min="1" step="0.5" />
+                        <span asp-validation-for="MaxScore" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="DueDate" class="form-label fw-semibold">Due Date</label>
+                        <input asp-for="DueDate" class="form-control" type="date" />
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <a asp-action="Assignments" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

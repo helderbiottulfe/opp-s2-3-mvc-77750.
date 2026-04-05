@@ -1,0 +1,79 @@
+@model IEnumerable<VgcCollege.Web.Models.Assignment>
+@{
+    ViewData["Title"] = "Gradebook";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-clipboard-data me-2"></i>Gradebook</h2>
+    <div class="d-flex gap-2">
+        <form method="get" asp-action="Gradebook">
+            <select name="courseId" asp-items="ViewBag.Courses" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="">All Courses</option>
+            </select>
+        </form>
+        <a asp-action="CreateAssignment" class="btn btn-primary btn-sm">
+            <i class="bi bi-plus-circle me-1"></i>New Assignment
+        </a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No assignments found. Create one to get started.</div>
+}
+
+@foreach (var assignment in Model)
+{
+    <div class="card shadow-sm mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center bg-light">
+            <div>
+                <strong>@assignment.Title</strong>
+                <span class="text-muted ms-2 small">| @assignment.Course?.Name | Due: @assignment.DueDate.ToString("dd MMM yyyy") | Max: @assignment.MaxScore</span>
+            </div>
+            <div class="d-flex gap-2">
+                <a asp-action="EditAssignment" asp-route-id="@assignment.Id" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-pencil me-1"></i>Edit
+                </a>
+                <a asp-action="AddResult" asp-route-assignmentId="@assignment.Id" class="btn btn-sm btn-outline-success">
+                    <i class="bi bi-plus-circle me-1"></i>Add / Update Result
+                </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Student</th>
+                        <th>Score</th>
+                        <th>%</th>
+                        <th>Feedback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!assignment.Results.Any())
+                    {
+                        <tr><td colspan="4" class="text-center text-muted py-2">No results entered yet.</td></tr>
+                    }
+                    @foreach (var r in assignment.Results)
+                    {
+                        var pct = assignment.MaxScore > 0 ? (r.Score / assignment.MaxScore * 100) : 0;
+                        <tr>
+                            <td>@r.StudentProfile?.Name</td>
+                            <td>@r.Score / @assignment.MaxScore</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="progress flex-grow-1" style="height:8px">
+                                        <div class="progress-bar bg-@(pct>=70?"success":pct>=50?"warning":"danger")"
+                                             style="width:@pct%"></div>
+                                    </div>
+                                    <small>@pct.ToString("0")%</small>
+                                </div>
+                            </td>
+                            <td class="text-muted small">@r.Feedback</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

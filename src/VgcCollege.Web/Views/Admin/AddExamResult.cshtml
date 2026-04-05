@@ -1,0 +1,56 @@
+@model VgcCollege.Web.Models.ExamResult
+@{
+    ViewData["Title"] = "Add Exam Result";
+    var exam = ViewBag.Exam as VgcCollege.Web.Models.Exam;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Add Exam Result</h5>
+            </div>
+            <div class="card-body">
+                @if (exam != null)
+                {
+                    <div class="alert alert-light border mb-3">
+                        <strong>@exam.Title</strong><br />
+                        <small class="text-muted">Course: @exam.Course?.Name | Max Score: @exam.MaxScore</small>
+                    </div>
+                }
+                <form asp-action="AddExamResult" method="post">
+                    @Html.AntiForgeryToken()
+                    <input asp-for="ExamId" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="StudentProfileId" class="form-label fw-semibold">Student</label>
+                        <select asp-for="StudentProfileId" asp-items="ViewBag.Students" class="form-select">
+                            <option value="">-- Select Student --</option>
+                        </select>
+                        <span asp-validation-for="StudentProfileId" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Score" class="form-label fw-semibold">Score (max @exam?.MaxScore)</label>
+                        <input asp-for="Score" class="form-control" type="number" step="0.5" min="0" max="@exam?.MaxScore" />
+                        <span asp-validation-for="Score" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Grade" class="form-label fw-semibold">Grade</label>
+                        <select asp-for="Grade" class="form-select">
+                            <option value="">-- Select Grade --</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Save Result</button>
+                        <a asp-action="ManageExams" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

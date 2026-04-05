@@ -1,0 +1,25 @@
+@model VgcCollege.Web.Models.StudentProfile
+@{
+    ViewData["Title"] = "Student Contact";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-person-lines-fill me-2"></i>Student Contact Details</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Name:</strong> @Model.Name</li>
+                <li class="list-group-item"><strong>Student No:</strong> @Model.StudentNumber</li>
+                <li class="list-group-item"><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></li>
+                <li class="list-group-item"><strong>Phone:</strong> @Model.Phone</li>
+                <li class="list-group-item"><strong>Address:</strong> @Model.Address</li>
+            </ul>
+            <div class="card-footer">
+                <a asp-action="MyStudents" class="btn btn-outline-secondary btn-sm">← Back to Students</a>
+            </div>
+        </div>
+        <p class="text-muted small mt-2"><i class="bi bi-shield-lock me-1"></i>Contact details are only visible to assigned tutors.</p>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "My Dashboard";
+    var profile = ViewBag.Profile as VgcCollege.Web.Models.StudentProfile;
+    var enrolments = ViewBag.Enrolments as List<VgcCollege.Web.Models.CourseEnrolment> ?? new();
+}
+
+<h2 class="mb-1"><i class="bi bi-mortarboard me-2"></i>Welcome, @profile?.Name</h2>
+<p class="text-muted mb-4">Student No: <strong>@profile?.StudentNumber</strong></p>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm bg-primary text-white text-center p-3">
+            <div class="fs-2 fw-bold">@enrolments.Count</div>
+            <div>Enrolled Courses</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm bg-success text-white text-center p-3">
+            <div class="fs-2 fw-bold">@enrolments.Count(e => e.Status == "Active")</div>
+            <div>Active Courses</div>
+        </div>
+    </div>
+</div>
+
+<h5>My Enrolled Courses</h5>
+<div class="row g-3">
+    @foreach (var e in enrolments)
+    {
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="card-title">@e.Course?.Name</h6>
+                    <p class="text-muted small mb-1">
+                        <i class="bi bi-building me-1"></i>@e.Course?.Branch?.Name
+                    </p>
+                    <p class="text-muted small mb-2">
+                        <i class="bi bi-calendar me-1"></i>@e.Course?.StartDate.ToString("dd MMM yyyy") – @e.Course?.EndDate.ToString("dd MMM yyyy")
+                    </p>
+                    <span class="badge bg-@(e.Status=="Active"?"success":"secondary")">@e.Status</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row g-3 mt-3">
+    <div class="col-12"><h5>Quick Links</h5></div>
+    <div class="col-auto"><a asp-controller="Student" asp-action="Grades" class="btn btn-outline-success"><i class="bi bi-bar-chart me-1"></i>View My Grades</a></div>
+    <div class="col-auto"><a asp-controller="Student" asp-action="ExamResults" class="btn btn-outline-info"><i class="bi bi-file-earmark-check me-1"></i>Exam Results</a></div>
+    <div class="col-auto"><a asp-controller="Student" asp-action="Attendance" class="btn btn-outline-primary"><i class="bi bi-calendar-check me-1"></i>My Attendance</a></div>
+    <div class="col-auto"><a asp-controller="Student" asp-action="Profile" class="btn btn-outline-secondary"><i class="bi bi-person me-1"></i>My Profile</a></div>
+</div>

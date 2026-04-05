@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2 class="mb-4"><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h2>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm bg-primary text-white">
+            <div class="card-body d-flex align-items-center gap-3">
+                <i class="bi bi-building display-5"></i>
+                <div>
+                    <div class="fs-2 fw-bold">@ViewBag.BranchCount</div>
+                    <div class="small">Branches</div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <a asp-action="Branches" class="text-white small">Manage →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm bg-success text-white">
+            <div class="card-body d-flex align-items-center gap-3">
+                <i class="bi bi-journal-bookmark display-5"></i>
+                <div>
+                    <div class="fs-2 fw-bold">@ViewBag.CourseCount</div>
+                    <div class="small">Courses</div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <a asp-action="Courses" class="text-white small">Manage →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm bg-info text-white">
+            <div class="card-body d-flex align-items-center gap-3">
+                <i class="bi bi-people display-5"></i>
+                <div>
+                    <div class="fs-2 fw-bold">@ViewBag.StudentCount</div>
+                    <div class="small">Students</div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <a asp-action="Students" class="text-white small">Manage →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm bg-warning text-dark">
+            <div class="card-body d-flex align-items-center gap-3">
+                <i class="bi bi-person-workspace display-5"></i>
+                <div>
+                    <div class="fs-2 fw-bold">@ViewBag.FacultyCount</div>
+                    <div class="small">Faculty Members</div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <a asp-action="Faculty" class="text-dark small">Manage →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm bg-secondary text-white">
+            <div class="card-body d-flex align-items-center gap-3">
+                <i class="bi bi-person-check display-5"></i>
+                <div>
+                    <div class="fs-2 fw-bold">@ViewBag.EnrolmentCount</div>
+                    <div class="small">Enrolments</div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <a asp-action="Enrolments" class="text-white small">Manage →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-12">
+        <h5>Quick Actions</h5>
+    </div>
+    <div class="col-auto"><a asp-action="CreateBranch" class="btn btn-outline-primary"><i class="bi bi-plus-circle me-1"></i>New Branch</a></div>
+    <div class="col-auto"><a asp-action="CreateCourse" class="btn btn-outline-success"><i class="bi bi-plus-circle me-1"></i>New Course</a></div>
+    <div class="col-auto"><a asp-action="CreateStudent" class="btn btn-outline-info"><i class="bi bi-plus-circle me-1"></i>New Student</a></div>
+    <div class="col-auto"><a asp-action="CreateEnrolment" class="btn btn-outline-secondary"><i class="bi bi-plus-circle me-1"></i>New Enrolment</a></div>
+    <div class="col-auto"><a asp-action="Assignments" class="btn btn-outline-primary"><i class="bi bi-clipboard me-1"></i>Assignments</a></div>
+    <div class="col-auto"><a asp-action="ManageExams" class="btn btn-outline-danger"><i class="bi bi-file-earmark-text me-1"></i>Manage Exams</a></div>
+</div>
